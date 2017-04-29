@@ -61,6 +61,6 @@ defmodule Uptimerobot.Monitor do
   """
   @spec is_monitored?(String.t) :: boolean
   def is_monitored?(url) when is_binary(url) do
-    nil
+    Enum.member?(get_from_monitors("url"), url)
   end
 end
