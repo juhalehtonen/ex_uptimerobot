@@ -31,7 +31,7 @@ defmodule Uptimerobot.Request do
   Build a request body based on the passed param map.
   """
   def build_body(params) when is_map(params) do
-    Poison.encode!(%{
+    IO.inspect Poison.encode!(%{
       "api_key": @api_key,
       "param": [ params ]
     })
