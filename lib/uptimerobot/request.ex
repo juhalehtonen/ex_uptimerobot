@@ -5,9 +5,14 @@ defmodule Uptimerobot.Request do
   @api_key Application.get_env(:uptimerobot, :api_key)
   @api_url "https://api.uptimerobot.com/v2/"
 
-  def post(action) when is_binary(action) do
+  @doc """
+  Send a POST request with a given API action and params.
+
+  If no params are provided, a default of `%{"format": "json"}` is passed.
+  """
+  def post(action, params \\ %{"format": "json"}) when is_binary(action) do
     url = @api_url <> action
-    body = build_body(%{"format": "json"})
+    body = build_body(params)
     headers = [{"Content-type", "application/json"}]
 
     case HTTPoison.post(url, body, headers, [ ssl: [{:versions, [:'tlsv1.2']}] ]) do
@@ -17,6 +22,8 @@ defmodule Uptimerobot.Request do
         {:error, "404: not found"}
       {:error, %HTTPoison.Error{reason: reason}} ->
         {:error, reason}
+      _ ->
+        {:error, "Unexpected error"}
     end
   end
 

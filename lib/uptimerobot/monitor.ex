@@ -14,19 +14,20 @@ defmodule Uptimerobot.Monitor do
   @doc """
   Get data for all monitors.
   """
-  def get_monitors() do
+  def get_monitors do
     case Uptimerobot.Request.post("getMonitors") do
       {:ok, body} ->
         body
+        |> Poison.Parser.parse
       {:error, reason} ->
-        reason
+        {:error, reason}
     end
   end
 
   @doc """
   Add a new monitor.
   """
-  def new_monitor() do
+  def new_monitor do
     nil
   end
 
@@ -34,17 +35,31 @@ defmodule Uptimerobot.Monitor do
   ## HELPERS & CONVENIENCE FUNCTIONS
 
   @doc """
-  Get specific pieces of data from a get_monitors call.
+  Get specific piece of data from within the monitors by key.
 
-  Desired Data is passed as a list.
+  Looks inside the nested "monitors", so does not return values outside those.
+
+  ## Example
+    iex > get_from_monitors("url")
   """
-  def get_from_monitors(data) when is_list(data) do
-    get_monitors()
+  @spec get_from_monitors(String.t) :: list
+  def get_from_monitors(key) when is_binary(key) do
+    case get_monitors() do
+      {:ok, body} ->
+        Enum.reduce(get_in(body, ["monitors"]), [], fn(x, acc) ->
+          [x[key] | acc]
+        end)
+      {:error, reason} ->
+        {:error, reason}
+      _ ->
+        {:error, "Unexpected error"}
+    end
   end
 
   @doc """
   Check if a given URL is being monitored.
   """
+  @spec is_monitored?(String.t) :: boolean
   def is_monitored?(url) when is_binary(url) do
     nil
   end
