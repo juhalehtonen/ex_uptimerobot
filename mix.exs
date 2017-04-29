@@ -7,7 +7,8 @@ defmodule Uptimerobot.Mixfile do
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps()]
+     deps: deps(),
+     package: package()]
   end
 
   # Configuration for the OTP application
@@ -16,6 +17,16 @@ defmodule Uptimerobot.Mixfile do
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
     [extra_applications: [:logger]]
+  end
+
+  # Defining the package for Hex.pm
+  defp package do
+    [
+      files: ["lib", "mix.exs", "README.md", "LICENSE.md"],
+      maintainers: ["Juha Lehtonen"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/juhalehtonen/uptimerobot"}
+    ]
   end
 
   # Dependencies can be Hex packages:
