@@ -38,14 +38,13 @@ defmodule Uptimerobot.Monitor do
   ## Example
     iex> Uptimerobot.Monitor.new_monitor("Name", "http://elixir-lang.org/", "1", "1")
   """
-  @spec new_monitor(String.t, String.t, String.t, String.t) :: tuple
-  def new_monitor(friendly_name, url, type \\ "1", interval \\ "1") do
+  @spec new_monitor(String.t, String.t, String.t) :: tuple
+  def new_monitor(friendly_name, url, type) do
     params = %{
-      "format": "json",
-      "friendly_name": friendly_name,
-      "url": url,
-      "type": type,
-      "interval": interval,
+      format: "json",
+      friendly_name: friendly_name,
+      url: url,
+      type: type
     }
 
     # TODO: Use the with keyword instead of nested cases
@@ -54,8 +53,9 @@ defmodule Uptimerobot.Monitor do
         case Poison.Parser.parse(body) do
           {:ok, body} ->
             case body["stat"] do
+              "ok" -> {:ok, "Added monitor"}
               "fail" -> {:error, body["error"]}
-              "success" -> {:ok, "Added monitor"}
+              _ -> {:error, "Unknown error"}
             end
           {:error, reason} ->
             {:error, reason}
