@@ -1,6 +1,7 @@
 # Uptimerobot
 
-**TODO: Add description**
+Configure with API key:
+`config :uptimerobot, :api_key, "your-uptimerobot-api-key"`
 
 ## Installation
 
