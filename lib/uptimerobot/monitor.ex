@@ -76,10 +76,10 @@ defmodule Uptimerobot.Monitor do
   Looks inside the nested "monitors", so does not return values outside those.
 
   ## Example
-    iex> get_from_monitors("url")
+    iex> list_values("url")
   """
-  @spec get_from_monitors(String.t) :: list
-  def get_from_monitors(key) when is_binary(key) do
+  @spec list_values(String.t) :: list
+  def list_values(key) when is_binary(key) do
     case get_monitors() do
       {:ok, body} ->
         Enum.reduce(get_in(body, ["monitors"]), [], fn(x, acc) ->
@@ -97,6 +97,6 @@ defmodule Uptimerobot.Monitor do
   """
   @spec is_monitored?(String.t) :: boolean
   def is_monitored?(url) when is_binary(url) do
-    Enum.member?(get_from_monitors("url"), url)
+    Enum.member?(list_values("url"), url)
   end
 end
