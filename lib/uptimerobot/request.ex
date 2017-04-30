@@ -31,6 +31,6 @@ defmodule Uptimerobot.Request do
   Build a request body based on the passed param map.
   """
   def build_body(params) when is_map(params) do
-    "api_key=#{@api_key}&#{URI.encode_query(params)}"
+    "api_key=" <> @api_key <> "&" <> URI.encode_query(params)
   end
 end
