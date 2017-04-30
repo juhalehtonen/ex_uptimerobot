@@ -19,7 +19,7 @@ defmodule Uptimerobot.Monitor do
     case Uptimerobot.Request.post("getMonitors") do
       {:ok, body} ->
         body
-        |> Poison.Parser.parse
+        |> Poison.Parser.parse()
       {:error, reason} ->
         {:error, reason}
       _ ->
