@@ -1,7 +1,21 @@
 # Uptimerobot
 
-Configure with API key:
-`config :uptimerobot, :api_key, "your-uptimerobot-api-key"`
+A small Elixir API wrapper for the https://uptimerobot.com/ service. Currently
+very much WIP with very limited functionality.
+
+
+## Usage
+
+Configure with your Uptime Robot API key:
+
+```elixir
+config :uptimerobot, :api_key, "your-uptimerobot-api-key"
+```
+
+Example usage:
+- Get all monitors: `Uptimerobot.Monitor.get_monitors()`
+- Add new monitor: `Uptimerobot.Monitor.new_monitor("Elixir Lang", "http://elixir-lang.org/", "1", "60")`
+
 
 ## Installation
 
