@@ -14,6 +14,7 @@ defmodule Uptimerobot.Monitor do
   @doc """
   Get data for all monitors.
   """
+  @spec get_monitors() :: tuple
   def get_monitors do
     case Uptimerobot.Request.post("getMonitors") do
       {:ok, body} ->
@@ -22,7 +23,7 @@ defmodule Uptimerobot.Monitor do
       {:error, reason} ->
         {:error, reason}
       _ ->
-        nil
+        {:error, "Unknown error"}
     end
   end
 
@@ -30,21 +31,22 @@ defmodule Uptimerobot.Monitor do
   Add a new monitor.
 
   Parameters
-    friendly_name - required
-    url - required
-    type - required (defaults to 1)
-    interval - optional (in seconds, defaults to 1)
+    friendly_name
+    url
+    type - 1 equals to http(s)
+    interval - in seconds (needs to be a multiple of 60)
 
   ## Example
-    iex> Uptimerobot.Monitor.new_monitor("Name", "http://elixir-lang.org/", "1", "1")
+    iex> Uptimerobot.Monitor.new_monitor("Name", "http://elixir-lang.org/", "1", "60")
   """
   @spec new_monitor(String.t, String.t, String.t) :: tuple
-  def new_monitor(friendly_name, url, type) do
+  def new_monitor(friendly_name, url, type, interval \\ "60") do
     params = %{
       format: "json",
       friendly_name: friendly_name,
       url: url,
-      type: type
+      type: type,
+      interval: interval
     }
 
     # TODO: Use the with keyword instead of nested cases
