@@ -1,6 +1,6 @@
 # Uptimerobot
 
-A small Elixir API wrapper for the https://uptimerobot.com/ service. Currently
+A small Elixir wrapper for the https://uptimerobot.com/ API service. Currently
 very much WIP with very limited functionality.
 
 
