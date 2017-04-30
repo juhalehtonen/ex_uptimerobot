@@ -16,7 +16,7 @@ defmodule Uptimerobot.Monitor do
 
   ## Example
     iex> Uptimerobot.Monitor.get_monitors()
-    
+
   TODO: Add support for pagination (limit & offset) past 50 monitors.
   """
   @spec get_monitors() :: tuple
@@ -42,10 +42,10 @@ defmodule Uptimerobot.Monitor do
     interval - in seconds (needs to be a multiple of 60)
 
   ## Example
-    iex> Uptimerobot.Monitor.new_monitor("Elixir Lang", "http://elixir-lang.org/", "1", "60")
+    iex> Uptimerobot.Monitor.new_monitor("Elixir Lang", "http://elixir-lang.org/")
   """
   @spec new_monitor(String.t, String.t, String.t, String.t) :: tuple
-  def new_monitor(friendly_name, url, type, interval \\ "60") do
+  def new_monitor(friendly_name, url, type \\ "1", interval \\ "60") do
     params = %{
       format: "json",
       friendly_name: friendly_name,

@@ -14,7 +14,7 @@ config :uptimerobot, :api_key, "your-uptimerobot-api-key"
 
 Example usage:
 - Get all monitors: `Uptimerobot.Monitor.get_monitors()`
-- Add new monitor: `Uptimerobot.Monitor.new_monitor("Elixir Lang", "http://elixir-lang.org/", "1", "60")`
+- Add new monitor: `Uptimerobot.Monitor.new_monitor("Elixir Lang", "http://elixir-lang.org/")`
 
 
 ## Installation
