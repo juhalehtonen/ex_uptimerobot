@@ -13,6 +13,7 @@ defmodule Uptimerobot.Monitor do
 
   @doc """
   Get data for all monitors.
+  TODO: Add support for pagination (limit & offset) past 50 monitors.
   """
   @spec get_monitors() :: tuple
   def get_monitors do
