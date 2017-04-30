@@ -1,11 +1,11 @@
 defmodule Uptimerobot.Monitor do
   @moduledoc """
   Interact with Monitor-related API paths:
-  - getMonitors
-  - newMonitor
-  - editMonitor
-  - deleteMonitor
-  - resetMonitor
+  - [x] getMonitors
+  - [x] newMonitor
+  - [] editMonitor
+  - [] deleteMonitor
+  - [] resetMonitor
   """
 
 
@@ -49,23 +49,22 @@ defmodule Uptimerobot.Monitor do
       interval: interval
     }
 
-    # TODO: Use the with keyword instead of nested cases
-    case Uptimerobot.Request.post("newMonitor", params) do
-      {:ok, body} ->
-        case Poison.Parser.parse(body) do
-          {:ok, body} ->
-            case body["stat"] do
-              "ok" -> {:ok, "Added monitor"}
-              "fail" -> {:error, body["error"]}
-              _ -> {:error, "Unknown error"}
-            end
-          {:error, reason} ->
-            {:error, reason}
-        end
-      {:error, reason} ->
-        {:error, reason}
-      _ ->
-        {:error, "Unknown error"}
+    with {:ok, body}  <- Uptimerobot.Request.post("newMonitor", params),
+         {:ok, body}  <- Poison.Parser.parse(body),
+         {:ok, _resp} <- check_api_response(body)
+    do 
+      {:ok, "Added monitor"}
+    else 
+      {:error, reason} -> {:error, reason}
+      _                -> {:error, "General error"}
+    end
+  end
+
+  defp check_api_response(body) do
+    case body["stat"] do
+      "ok"   -> {:ok, "Added monitor"}
+      "fail" -> {:error, body["error"]}
+      _      -> {:error, "Unknown error"}
     end
   end
 
