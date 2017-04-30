@@ -37,9 +37,9 @@ defmodule Uptimerobot.Monitor do
     interval - in seconds (needs to be a multiple of 60)
 
   ## Example
-    iex> Uptimerobot.Monitor.new_monitor("Name", "http://elixir-lang.org/", "1", "60")
+    iex> Uptimerobot.Monitor.new_monitor("Elixir Lang", "http://elixir-lang.org/", "1", "60")
   """
-  @spec new_monitor(String.t, String.t, String.t) :: tuple
+  @spec new_monitor(String.t, String.t, String.t, String.t) :: tuple
   def new_monitor(friendly_name, url, type, interval \\ "60") do
     params = %{
       format: "json",
@@ -51,7 +51,7 @@ defmodule Uptimerobot.Monitor do
 
     with {:ok, body}  <- Uptimerobot.Request.post("newMonitor", params),
          {:ok, body}  <- Poison.Parser.parse(body),
-         {:ok, _resp} <- check_api_response(body)
+         {:ok, _resp} <- new_monitor_status?(body)
     do 
       {:ok, "Added monitor"}
     else 
@@ -60,7 +60,7 @@ defmodule Uptimerobot.Monitor do
     end
   end
 
-  defp check_api_response(body) do
+  defp new_monitor_status?(body) do
     case body["stat"] do
       "ok"   -> {:ok, "Added monitor"}
       "fail" -> {:error, body["error"]}
