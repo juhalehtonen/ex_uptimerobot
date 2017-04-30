@@ -1,4 +1,4 @@
-# Uptimerobot
+# ExUptimerobot
 
 A small Elixir wrapper for the https://uptimerobot.com/ API service. Currently
 very much WIP with very limited functionality.
@@ -9,22 +9,22 @@ very much WIP with very limited functionality.
 Configure with your Uptime Robot API key:
 
 ```elixir
-config :uptimerobot, :api_key, "your-uptimerobot-api-key"
+config :ex_uptimerobot, :api_key, "your-uptimerobot-api-key"
 ```
 
 Example usage:
-- Get all monitors: `Uptimerobot.Monitor.get_monitors()`
-- Add new monitor: `Uptimerobot.Monitor.new_monitor("Elixir Lang", "http://elixir-lang.org/")`
+- Get all monitors: `ExUptimerobot.Monitor.get_monitors()`
+- Add new monitor: `ExUptimerobot.Monitor.new_monitor("Elixir Lang", "http://elixir-lang.org/")`
 
 
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `uptimerobot` to your list of dependencies in `mix.exs`:
+by adding `ex_uptimerobot` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:uptimerobot, "~> 0.1.0"}]
+  [{:ex_uptimerobot, "~> 0.1.0"}]
 end
 ```
 

@@ -1,8 +1,8 @@
-defmodule Uptimerobot.Mixfile do
+defmodule ExUptimerobot.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :uptimerobot,
+    [app: :ex_uptimerobot,
      version: "0.1.0",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
@@ -25,7 +25,7 @@ defmodule Uptimerobot.Mixfile do
       files: ["lib", "mix.exs", "README.md", "LICENSE.md"],
       maintainers: ["Juha Lehtonen"],
       licenses: ["MIT"],
-      links: %{"GitHub" => "https://github.com/juhalehtonen/uptimerobot"}
+      links: %{"GitHub" => "https://github.com/juhalehtonen/ex_uptimerobot"}
     ]
   end
 

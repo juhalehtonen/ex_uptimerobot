@@ -1,4 +1,4 @@
-defmodule Uptimerobot do
+defmodule ExUptimerobot do
   @moduledoc """
   Documentation for Uptimerobot.
 

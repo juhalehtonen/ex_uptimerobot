@@ -1,4 +1,4 @@
-defmodule Uptimerobot.Monitor do
+defmodule ExUptimerobot.Monitor do
   @moduledoc """
   Interact with Monitor-related API paths:
   - [x] getMonitors
@@ -21,7 +21,7 @@ defmodule Uptimerobot.Monitor do
   """
   @spec get_monitors() :: tuple
   def get_monitors do
-    case Uptimerobot.Request.post("getMonitors") do
+    case ExUptimerobot.Request.post("getMonitors") do
       {:ok, body} ->
         body
         |> Poison.Parser.parse()
@@ -54,7 +54,7 @@ defmodule Uptimerobot.Monitor do
       interval: interval
     }
 
-    with {:ok, body}  <- Uptimerobot.Request.post("newMonitor", params),
+    with {:ok, body}  <- ExUptimerobot.Request.post("newMonitor", params),
          {:ok, body}  <- Poison.Parser.parse(body),
          {:ok, _resp} <- new_monitor_status?(body)
     do 

@@ -1,8 +1,8 @@
-defmodule Uptimerobot.Request do
+defmodule ExUptimerobot.Request do
   @moduledoc """
   Sending HTTP requests to the Uptime Robot API.
   """
-  @api_key Application.get_env(:uptimerobot, :api_key)
+  @api_key Application.get_env(:ex_uptimerobot, :api_key)
   @api_url "https://api.uptimerobot.com/v2/"
 
   @doc """
