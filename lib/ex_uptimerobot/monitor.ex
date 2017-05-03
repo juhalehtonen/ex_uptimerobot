@@ -12,23 +12,21 @@ defmodule ExUptimerobot.Monitor do
   ## API PATHS
 
   @doc """
-  Get data for all monitors.
+  Get data for all monitors, or a set of monitors as specified by params. Full
+  documentation for parameters can be found from https://uptimerobot.com/api.
 
   ## Example
     iex> Uptimerobot.Monitor.get_monitors()
-
-  TODO: Add support for pagination (limit & offset) past 50 monitors.
   """
-  @spec get_monitors() :: tuple
-  def get_monitors do
-    case ExUptimerobot.Request.post("getMonitors") do
-      {:ok, body} ->
-        body
-        |> Poison.Parser.parse()
-      {:error, reason} ->
-        {:error, reason}
-      _ ->
-        {:error, "Unknown error"}
+  @spec get_monitors(map) :: tuple
+  def get_monitors(params \\ %{format: "json"}) do
+    with {:ok, body} <- ExUptimerobot.Request.post("getMonitors", params),
+         {:ok, body} <- Poison.Parser.parse(body)
+    do
+      body
+    else
+      {:error, reason} -> {:error, reason}
+      _                -> {:error, "Error getting monitors"}
     end
   end
 
@@ -57,9 +55,9 @@ defmodule ExUptimerobot.Monitor do
     with {:ok, body}  <- ExUptimerobot.Request.post("newMonitor", params),
          {:ok, body}  <- Poison.Parser.parse(body),
          {:ok, _resp} <- new_monitor_status?(body)
-    do 
+    do
       {:ok, "Added monitor"}
-    else 
+    else
       {:error, reason} -> {:error, reason}
       _                -> {:error, "General error"}
     end
