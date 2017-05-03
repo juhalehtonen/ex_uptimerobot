@@ -30,3 +30,6 @@ Example usage:
 
 Docs can be found at [https://hexdocs.pm/uptimerobot](https://hexdocs.pm/uptimerobot).
 
+## License
+
+Made available under the MIT license. See [LICENSE](LICENSE.md) for more details.
