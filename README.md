@@ -13,13 +13,13 @@ def deps do
 end
 ```
 
-## Usage
-
 Configure with your Uptime Robot API key:
 
 ```elixir
 config :ex_uptimerobot, :api_key, "your-uptimerobot-api-key"
 ```
+
+## Usage
 
 Example usage:
 - Get all monitors: `ExUptimerobot.Monitor.get_monitors()`
