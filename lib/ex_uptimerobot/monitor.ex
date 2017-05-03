@@ -1,11 +1,6 @@
 defmodule ExUptimerobot.Monitor do
   @moduledoc """
-  Interact with Monitor-related API paths:
-  - [x] getMonitors
-  - [x] newMonitor
-  - [] editMonitor
-  - [] deleteMonitor
-  - [] resetMonitor
+  Interact with Monitor-related API methods.
   """
 
 
@@ -13,17 +8,20 @@ defmodule ExUptimerobot.Monitor do
 
   @doc """
   Get data for all monitors, or a set of monitors as specified by params. Full
-  documentation for parameters can be found from https://uptimerobot.com/api.
+  documentation for all possible parameters can be found from https://uptimerobot.com/api.
 
   ## Example
+
     iex> Uptimerobot.Monitor.get_monitors()
+    {:ok, %{"monitors" => [%{"create_datetime" => 0, "friendly_name" => "Elixir Lang"}]}
+    
   """
   @spec get_monitors([tuple]) :: tuple
   def get_monitors(params \\ []) do
     with {:ok, body} <- ExUptimerobot.Request.post("getMonitors", params),
          {:ok, body} <- Poison.Parser.parse(body)
     do
-      body
+      {:ok, body}
     else
       {:error, reason} -> {:error, reason}
       _                -> {:error, "Error getting monitors"}
@@ -31,16 +29,15 @@ defmodule ExUptimerobot.Monitor do
   end
 
   @doc """
-  Add a new monitor.
+  Add a new monitor with given parameters.
 
-  Parameters
-    friendly_name
-    url
-    type - 1 equals to http(s)
-    interval - in seconds (needs to be a multiple of 60)
+  Three parameters are required: `friendly_name`, `url` and `type`.
 
   ## Example
-    iex> Uptimerobot.Monitor.new_monitor([friendly_name: "Elixir Lang", url: "http://elixir-lang.org/"])
+
+    iex> ExUptimerobot.Monitor.new_monitor([friendly_name: "Elixir Lang", url: "http://elixir-lang.org/", type: 1])
+    {:ok, "Added monitor"}
+
   """
   @spec get_monitors([tuple]) :: tuple
   def new_monitor(params \\ []) do
@@ -67,20 +64,24 @@ defmodule ExUptimerobot.Monitor do
   ## HELPERS & CONVENIENCE FUNCTIONS
 
   @doc """
-  Get specific piece of data from within the monitors by key.
-
-  Looks inside the nested "monitors", so does not return values outside those.
+  Returns `{:ok, values}` where `values` is a list of each values for given key
+  per project.
 
   ## Example
-    iex> list_values("url")
+
+    iex> ExUptimerobot.Monitor.list_values("url")
+    {:ok, ["http://elixir-lang.org/", "https://www.erlang.org/"]}
+
   """
-  @spec list_values(String.t) :: list
+  @spec list_values(String.t) :: tuple
   def list_values(key) when is_binary(key) do
     case get_monitors() do
       {:ok, body} ->
-        Enum.reduce(get_in(body, ["monitors"]), [], fn(x, acc) ->
-          [x[key] | acc]
-        end)
+        {:ok, 
+          Enum.reduce(get_in(body, ["monitors"]), [], fn(x, acc) ->
+           [x[key] | acc]
+          end)
+        }
       {:error, reason} ->
         {:error, reason}
       _ ->
@@ -93,6 +94,9 @@ defmodule ExUptimerobot.Monitor do
   """
   @spec is_monitored?(String.t) :: boolean
   def is_monitored?(url) when is_binary(url) do
-    Enum.member?(list_values("url"), url)
+    case list_values("url") do
+      {:ok, body} -> Enum.member?(body, url)
+      {:error, reason} -> {:error, reason}
+    end
   end
 end
