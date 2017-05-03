@@ -10,7 +10,7 @@ defmodule ExUptimerobot.Request do
 
   If no params are provided, a default of `%{"format": "json"}` is passed.
   """
-  def post(action, params \\ %{format: "json"}) when is_binary(action) do
+  def post(action, params \\ [format: "json"]) when is_binary(action) do
     url = @api_url <> action
     body = build_body(params)
     headers = [{"Content-type", "application/x-www-form-urlencoded"}]
@@ -30,7 +30,7 @@ defmodule ExUptimerobot.Request do
   @doc """
   Build a request body based on the passed param map.
   """
-  def build_body(params) when is_map(params) do
+  def build_body(params) when is_list(params) do
     "api_key=" <> @api_key <> "&" <> URI.encode_query(params)
   end
 end

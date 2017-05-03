@@ -18,8 +18,8 @@ defmodule ExUptimerobot.Monitor do
   ## Example
     iex> Uptimerobot.Monitor.get_monitors()
   """
-  @spec get_monitors(map) :: tuple
-  def get_monitors(params \\ %{format: "json"}) do
+  @spec get_monitors([tuple]) :: tuple
+  def get_monitors(params \\ []) do
     with {:ok, body} <- ExUptimerobot.Request.post("getMonitors", params),
          {:ok, body} <- Poison.Parser.parse(body)
     do
@@ -40,18 +40,10 @@ defmodule ExUptimerobot.Monitor do
     interval - in seconds (needs to be a multiple of 60)
 
   ## Example
-    iex> Uptimerobot.Monitor.new_monitor("Elixir Lang", "http://elixir-lang.org/")
+    iex> Uptimerobot.Monitor.new_monitor([friendly_name: "Elixir Lang", url: "http://elixir-lang.org/"])
   """
-  @spec new_monitor(String.t, String.t, String.t, String.t) :: tuple
-  def new_monitor(friendly_name, url, type \\ "1", interval \\ "60") do
-    params = %{
-      format: "json",
-      friendly_name: friendly_name,
-      url: url,
-      type: type,
-      interval: interval
-    }
-
+  @spec get_monitors([tuple]) :: tuple
+  def new_monitor(params \\ []) do
     with {:ok, body}  <- ExUptimerobot.Request.post("newMonitor", params),
          {:ok, body}  <- Poison.Parser.parse(body),
          {:ok, _resp} <- new_monitor_status?(body)
