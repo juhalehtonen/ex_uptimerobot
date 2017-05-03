@@ -12,7 +12,7 @@ defmodule ExUptimerobot.Monitor do
 
   ## Example
 
-    iex> Uptimerobot.Monitor.get_monitors()
+    iex> ExUptimerobot.Monitor.get_monitors()
     {:ok, %{"monitors" => [%{"create_datetime" => 0, "friendly_name" => "Elixir Lang"}]}
     
   """

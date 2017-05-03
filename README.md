@@ -23,7 +23,7 @@ config :ex_uptimerobot, :api_key, "your-uptimerobot-api-key"
 
 Example usage:
 - Get all monitors: `ExUptimerobot.Monitor.get_monitors()`
-- Add a new monitor: `ExUptimerobot.Monitor.new_monitor("Elixir Lang", "http://elixir-lang.org/")`
+- Add a new monitor: `ExUptimerobot.Monitor.new_monitor([friendly_name: "Elixir Lang", url: "http://elixir-lang.org/", type: 1])`
 
 
 ## Documentation
