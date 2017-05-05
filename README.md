@@ -9,9 +9,11 @@ Add `ex_uptimerobot` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:ex_uptimerobot, "~> 0.1.0"}]
+  [{:ex_uptimerobot, "~> 0.1.1"}]
 end
 ```
+
+Run `mix deps.get`
 
 Configure with your Uptime Robot API key:
 
