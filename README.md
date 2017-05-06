@@ -1,5 +1,7 @@
 # ExUptimerobot
 
+[![Build Status](https://travis-ci.org/juhalehtonen/ex_uptimerobot.svg?branch=master)](https://travis-ci.org/juhalehtonen/ex_uptimerobot)
+
 A small Elixir wrapper for the https://uptimerobot.com/ API service. Currently
 very much WIP with very limited functionality.
 
