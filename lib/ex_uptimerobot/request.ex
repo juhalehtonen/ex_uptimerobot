@@ -2,11 +2,11 @@ defmodule ExUptimerobot.Request do
   @moduledoc """
   Sending HTTP requests to the Uptime Robot API.
 
-  Generally you will not interact with this module directly. Instead, you will
-  want to use the different modules for making API calls, which then refer to 
-  this module for their POST actions.
+  Generally you will not need to interact with this module directly. Instead, you
+  might want to use the different modules for making API calls, which then refer
+  to this module for their request needs.
   """
-  @api_key Application.get_env(:ex_uptimerobot, :api_key)
+  @api_key System.get_env("EXUPTIMEROBOT_API_KEY") || Application.get_env(:ex_uptimerobot, :api_key)
   @api_url "https://api.uptimerobot.com/v2/"
 
   @doc """

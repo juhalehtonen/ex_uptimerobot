@@ -3,26 +3,29 @@
 A small Elixir wrapper for the https://uptimerobot.com/ API service. Currently
 very much WIP with very limited functionality.
 
-See [https://hexdocs.pm/uptimerobot](https://hexdocs.pm/ex_uptimerobot) for a list 
+See [https://hexdocs.pm/ex_uptimerobot](https://hexdocs.pm/ex_uptimerobot) for a list 
 of available API method wrappers.
 
 ## Installation
 
-Add `ex_uptimerobot` to your list of dependencies in `mix.exs`:
+1. Add `ex_uptimerobot` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:ex_uptimerobot, "~> 0.2.1"}]
+  [{:ex_uptimerobot, "~> 0.2.2"}]
 end
 ```
 
-Run `mix deps.get`
+2. Run `mix deps.get`
 
-Configure with your Uptime Robot API key:
+Configure with your Uptime Robot API key, either via:
 
 ```elixir
 config :ex_uptimerobot, :api_key, "your-uptimerobot-api-key"
 ```
+
+or by setting the `EXUPTIMEROBOT_API_KEY` environment variable.
+
 
 ## Usage
 
@@ -33,7 +36,7 @@ Example usage:
 
 ## Documentation
 
-Docs can be found at [https://hexdocs.pm/uptimerobot](https://hexdocs.pm/ex_uptimerobot).
+Docs can be found at [https://hexdocs.pm/ex_uptimerobot](https://hexdocs.pm/ex_uptimerobot).
 
 ## License
 
