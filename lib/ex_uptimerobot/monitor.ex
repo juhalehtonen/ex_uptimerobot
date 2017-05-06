@@ -2,6 +2,7 @@ defmodule ExUptimerobot.Monitor do
   @moduledoc """
   Interact with Monitor-related API methods.
   """
+  alias ExUptimerobot.Request
 
 
   ## API PATHS
@@ -18,7 +19,7 @@ defmodule ExUptimerobot.Monitor do
   """
   @spec get_monitors([tuple]) :: tuple
   def get_monitors(params \\ []) do
-    with {:ok, body} <- ExUptimerobot.Request.post("getMonitors", params),
+    with {:ok, body} <- Request.post("getMonitors", params),
          {:ok, body} <- Poison.Parser.parse(body)
     do
       {:ok, body}
@@ -41,9 +42,9 @@ defmodule ExUptimerobot.Monitor do
   """
   @spec new_monitor([tuple]) :: tuple
   def new_monitor(params \\ []) do
-    with {:ok, body}  <- ExUptimerobot.Request.post("newMonitor", params),
+    with {:ok, body}  <- Request.post("newMonitor", params),
          {:ok, body}  <- Poison.Parser.parse(body),
-         {:ok, _resp} <- response_status?(body)
+         {:ok, _resp} <- Request.response_status?(body)
     do
       {:ok, "Added monitor"}
     else
@@ -59,9 +60,9 @@ defmodule ExUptimerobot.Monitor do
   @spec delete_monitor(integer) :: tuple
   @spec delete_monitor(String.t) :: tuple
   def delete_monitor(id) do
-    with {:ok, body} <- ExUptimerobot.Request.post("deleteMonitor", [format: "json", id: id]),
+    with {:ok, body} <- Request.post("deleteMonitor", [format: "json", id: id]),
          {:ok, body} <- Poison.Parser.parse(body),
-         {:ok, _resp} <- response_status?(body)
+         {:ok, _resp} <- Request.response_status?(body)
     do
       {:ok, "Deleted monitor #{id}"}
     else
@@ -76,9 +77,9 @@ defmodule ExUptimerobot.Monitor do
   @spec reset_monitor(integer) :: tuple
   @spec reset_monitor(String.t) :: tuple
   def reset_monitor(id) do
-    with {:ok, body} <- ExUptimerobot.Request.post("resetMonitor", [format: "json", id: id]),
+    with {:ok, body} <- Request.post("resetMonitor", [format: "json", id: id]),
          {:ok, body} <- Poison.Parser.parse(body),
-         {:ok, _resp} <- response_status?(body)
+         {:ok, _resp} <- Request.response_status?(body)
     do
       {:ok, "Reset monitor #{id}"}
     else
@@ -89,17 +90,6 @@ defmodule ExUptimerobot.Monitor do
 
 
   ## HELPERS & CONVENIENCE FUNCTIONS
-
-  # Check the response to determine whether the API response status is positive
-  # or negative; success or failure.
-  @spec response_status?(any) :: tuple
-  defp response_status?(body) do
-    case body["stat"] do
-      "ok"   -> {:ok, "Success"}
-      "fail" -> {:error, body["error"]}
-      _      -> {:error, "Unknown error"}
-    end
-  end
 
   @doc """
   Returns `{:ok, values}` where `values` is a list of each values for given key

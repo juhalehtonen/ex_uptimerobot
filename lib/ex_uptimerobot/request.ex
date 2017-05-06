@@ -4,7 +4,7 @@ defmodule ExUptimerobot.Request do
 
   Generally you will not interact with this module directly. Instead, you will
   want to use the different modules for making API calls, which then refer to 
-  this module for their Post actions.
+  this module for their POST actions.
   """
   @api_key Application.get_env(:ex_uptimerobot, :api_key)
   @api_url "https://api.uptimerobot.com/v2/"
@@ -27,7 +27,7 @@ defmodule ExUptimerobot.Request do
       {:error, %HTTPoison.Error{reason: reason}} ->
         {:error, reason}
       _ ->
-        {:error, "Failed to Post"}
+        {:error, "Failed to POST"}
     end
   end
 
@@ -36,5 +36,18 @@ defmodule ExUptimerobot.Request do
   """
   def build_body(params) when is_list(params) do
     "api_key=" <> @api_key <> "&" <> URI.encode_query(params)
+  end
+
+  @doc """
+  Check the response to determine whether the API response status returns 
+  a success or a failure.
+  """
+  @spec response_status?(any) :: tuple
+  def response_status?(body) do
+    case body["stat"] do
+      "ok"   -> {:ok, "Success"}
+      "fail" -> {:error, body["error"]}
+      _      -> {:error, "Unknown error"}
+    end
   end
 end
