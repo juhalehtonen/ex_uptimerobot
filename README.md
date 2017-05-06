@@ -3,13 +3,16 @@
 A small Elixir wrapper for the https://uptimerobot.com/ API service. Currently
 very much WIP with very limited functionality.
 
+See [https://hexdocs.pm/uptimerobot](https://hexdocs.pm/uptimerobot) for a list 
+of available API method wrappers.
+
 ## Installation
 
 Add `ex_uptimerobot` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:ex_uptimerobot, "~> 0.1.1"}]
+  [{:ex_uptimerobot, "~> 0.2.0"}]
 end
 ```
 
