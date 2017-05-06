@@ -3,7 +3,7 @@
 A small Elixir wrapper for the https://uptimerobot.com/ API service. Currently
 very much WIP with very limited functionality.
 
-See [https://hexdocs.pm/uptimerobot](https://hexdocs.pm/uptimerobot) for a list 
+See [https://hexdocs.pm/uptimerobot](https://hexdocs.pm/ex_uptimerobot) for a list 
 of available API method wrappers.
 
 ## Installation
@@ -33,7 +33,7 @@ Example usage:
 
 ## Documentation
 
-Docs can be found at [https://hexdocs.pm/uptimerobot](https://hexdocs.pm/uptimerobot).
+Docs can be found at [https://hexdocs.pm/uptimerobot](https://hexdocs.pm/ex_uptimerobot).
 
 ## License
 
