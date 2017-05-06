@@ -39,7 +39,7 @@ defmodule ExUptimerobot.Monitor do
     {:ok, "Added monitor"}
 
   """
-  @spec get_monitors([tuple]) :: tuple
+  @spec new_monitor([tuple]) :: tuple
   def new_monitor(params \\ []) do
     with {:ok, body}  <- ExUptimerobot.Request.post("newMonitor", params),
          {:ok, body}  <- Poison.Parser.parse(body),
@@ -56,6 +56,8 @@ defmodule ExUptimerobot.Monitor do
   @doc """
   Delete an existing monitor by the monitor ID.
   """
+  @spec delete_monitor(integer) :: tuple
+  @spec delete_monitor(String.t) :: tuple
   def delete_monitor(id) do
     with {:ok, body} <- ExUptimerobot.Request.post("deleteMonitor", [format: "json", id: id]),
          {:ok, body} <- Poison.Parser.parse(body),
@@ -68,9 +70,28 @@ defmodule ExUptimerobot.Monitor do
     end
   end
 
+  @doc """
+  Reset (delete all stats and response time data) a monitor by the monitor ID.
+  """
+  @spec reset_monitor(integer) :: tuple
+  @spec reset_monitor(String.t) :: tuple
+  def reset_monitor(id) do
+    with {:ok, body} <- ExUptimerobot.Request.post("resetMonitor", [format: "json", id: id]),
+         {:ok, body} <- Poison.Parser.parse(body),
+         {:ok, _resp} <- response_status?(body)
+    do
+      {:ok, "Reset monitor #{id}"}
+    else
+      {:error, reason} -> {:error, reason}
+      _                -> {:error, "Error resetting monitor"}
+    end
+  end
+
 
   ## HELPERS & CONVENIENCE FUNCTIONS
 
+  # Check the response to determine whether the API response status is positive
+  # or negative; success or failure.
   @spec response_status?(any) :: tuple
   defp response_status?(body) do
     case body["stat"] do
