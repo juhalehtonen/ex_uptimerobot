@@ -14,7 +14,8 @@ defmodule ExUptimerobot.Request do
 
   If no params are provided, only a default parameter `format=json` will be used.
   """
-  def post(action, params \\ [format: "json"]) when is_binary(action) do
+  def post(action, params \\ [format: "json"])
+  def post(action, params) when is_binary(action) do
     url = @api_url <> action
     body = build_body(params)
     headers = [{"Content-type", "application/x-www-form-urlencoded"}]
@@ -30,6 +31,7 @@ defmodule ExUptimerobot.Request do
         {:error, "Failed to POST"}
     end
   end
+  def post(_action, _params) do {:error, "Invalid action"} end
 
   @doc """
   Build a request body based on the passed keyword list of params.

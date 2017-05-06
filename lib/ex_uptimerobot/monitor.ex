@@ -103,17 +103,21 @@ defmodule ExUptimerobot.Monitor do
   """
   @spec list_values(String.t) :: tuple
   def list_values(key) when is_binary(key) do
-    case get_monitors() do
-      {:ok, body} ->
-        {:ok, 
-          Enum.reduce(get_in(body, ["monitors"]), [], fn(x, acc) ->
-           [x[key] | acc]
-          end)
-        }
-      {:error, reason} ->
-        {:error, reason}
-      _ ->
-        {:error, "Unexpected error"}
+    if Enum.member?(monitor_keys(), key) do
+      case get_monitors() do
+        {:ok, body} ->
+          {:ok, 
+            Enum.reduce(get_in(body, ["monitors"]), [], fn(x, acc) ->
+            [x[key] | acc]
+            end)
+          }
+        {:error, reason} ->
+          {:error, reason}
+        _ ->
+          {:error, "Unexpected error"}
+      end
+    else
+      {:error, "Not a valid key"}
     end
   end
 
@@ -126,5 +130,24 @@ defmodule ExUptimerobot.Monitor do
       {:ok, body} -> Enum.member?(body, url)
       {:error, reason} -> {:error, reason}
     end
+  end
+
+  # Provide a list of possible monitor keys
+  defp monitor_keys do
+    ["id",
+    "friendly_name",
+    "url",
+    "type",
+    "sub_type",
+    "keyword_type",
+    "keyword_value",
+    "http_username",
+    "http_password",
+    "port",
+    "interval",
+    "status",
+    "monitor_group",
+    "is_group_main",
+    "logs"]
   end
 end
