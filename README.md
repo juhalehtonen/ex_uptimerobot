@@ -24,7 +24,7 @@ Configure with your Uptime Robot API key, either via:
 config :ex_uptimerobot, :api_key, "your-uptimerobot-api-key"
 ```
 
-or by setting the `EXUPTIMEROBOT_API_KEY` environment variable.
+or by setting the `EXUPTIMEROBOT_API_KEY` system environment variable.
 
 
 ## Usage
