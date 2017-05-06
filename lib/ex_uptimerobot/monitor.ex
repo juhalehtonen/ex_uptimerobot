@@ -43,7 +43,7 @@ defmodule ExUptimerobot.Monitor do
   def new_monitor(params \\ []) do
     with {:ok, body}  <- ExUptimerobot.Request.post("newMonitor", params),
          {:ok, body}  <- Poison.Parser.parse(body),
-         {:ok, _resp} <- new_monitor_status?(body)
+         {:ok, _resp} <- response_status?(body)
     do
       {:ok, "Added monitor"}
     else
@@ -52,16 +52,33 @@ defmodule ExUptimerobot.Monitor do
     end
   end
 
-  defp new_monitor_status?(body) do
-    case body["stat"] do
-      "ok"   -> {:ok, "Added monitor"}
-      "fail" -> {:error, body["error"]}
-      _      -> {:error, "Unknown error"}
+
+  @doc """
+  Delete an existing monitor by the monitor ID.
+  """
+  def delete_monitor(id) do
+    with {:ok, body} <- ExUptimerobot.Request.post("deleteMonitor", [format: "json", id: id]),
+         {:ok, body} <- Poison.Parser.parse(body),
+         {:ok, _resp} <- response_status?(body)
+    do
+      {:ok, "Deleted monitor #{id}"}
+    else
+      {:error, reason} -> {:error, reason}
+      _                -> {:error, "Error deleting monitor"}
     end
   end
 
 
   ## HELPERS & CONVENIENCE FUNCTIONS
+
+  @spec response_status?(any) :: tuple
+  defp response_status?(body) do
+    case body["stat"] do
+      "ok"   -> {:ok, "Success"}
+      "fail" -> {:error, body["error"]}
+      _      -> {:error, "Unknown error"}
+    end
+  end
 
   @doc """
   Returns `{:ok, values}` where `values` is a list of each values for given key

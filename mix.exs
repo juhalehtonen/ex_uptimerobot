@@ -3,7 +3,7 @@ defmodule ExUptimerobot.Mixfile do
 
   def project do
     [app: :ex_uptimerobot,
-     version: "0.1.1",
+     version: "0.2.0",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -27,8 +27,7 @@ defmodule ExUptimerobot.Mixfile do
       maintainers: ["Juha Lehtonen"],
       licenses: ["MIT"],
       links: %{
-        "GitHub" => "https://github.com/juhalehtonen/ex_uptimerobot",
-        "Docs" => "https://hexdocs.pm/ex_uptimerobot"}
+        "GitHub" => "https://github.com/juhalehtonen/ex_uptimerobot"}
     ]
   end
 
