@@ -53,7 +53,7 @@ defmodule ExUptimerobot.Mixfile do
      {:httpoison, "~> 0.11.2"},
      {:ex_doc, "~> 0.15.1", only: :dev, runtime: false},
      {:earmark, "~> 1.2", only: :dev},
-     {:dialyxir, "~> 0.5.0", only: [:dev], runtime: false}}
+     {:dialyxir, "~> 0.5.0", only: [:dev], runtime: false}
     ]
   end
 end
