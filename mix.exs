@@ -8,6 +8,7 @@ defmodule ExUptimerobot.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps(),
+     dialyzer: [plt_add_deps: :project],
      description: description(),
      package: package()]
   end
@@ -51,7 +52,8 @@ defmodule ExUptimerobot.Mixfile do
      {:poison, "~> 3.1"},
      {:httpoison, "~> 0.11.2"},
      {:ex_doc, "~> 0.15.1", only: :dev, runtime: false},
-     {:earmark, "~> 1.2", only: :dev}
+     {:earmark, "~> 1.2", only: :dev},
+     {:dialyxir, "~> 0.5.0", only: :dev}
     ]
   end
 end
