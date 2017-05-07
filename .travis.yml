@@ -18,5 +18,5 @@ before_script:
   - wget -O $PLT_LOCATION https://raw.github.com/danielberkompas/travis_elixir_plts/master/$PLT_FILENAME
 script:
   - mix test
-  - dialyzer --no_check_plt --plt $PLT_LOCATION --no_native _build/test/lib/$YOUR_PROJECT_NAME/ebin
+  - dialyzer --no_check_plt --plt $PLT_LOCATION --no_native _build/test/lib/ex_uptimerobot/ebin
 
