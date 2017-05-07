@@ -113,8 +113,6 @@ defmodule ExUptimerobot.Monitor do
           }
         {:error, reason} ->
           {:error, reason}
-        _ ->
-          {:error, "Unexpected error"}
       end
     else
       {:error, "Not a valid key"}
