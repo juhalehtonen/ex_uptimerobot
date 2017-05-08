@@ -24,12 +24,4 @@ defmodule ExUptimerobot.MonitorTest do
   test "Adding new monitor with insufficient params fails" do
     assert {:error, _reason} = ExUptimerobot.Monitor.new_monitor()
   end
-
-  test "Adding new monitor with sufficient params succeeds" do
-    assert {:ok, _resp} = ExUptimerobot.Monitor.new_monitor([
-                            friendly_name: "Elixir Lang",
-                            url: "http://elixir-lang.org/",
-                            type: 1
-                          ])
-  end
 end
