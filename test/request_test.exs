@@ -11,4 +11,13 @@ defmodule ExUptimerobot.RequestTest do
   test "POST request with invalid action type fails" do
     assert {:error, _reason} = ExUptimerobot.Request.post(123)
   end
+
+  test "Building a request body from params of keyword list succeeds" do
+    body = ExUptimerobot.Request.build_body([key1: "value1", key2: "value2"])
+    assert is_binary(body)
+  end
+
+  test "Building a body from invalid param type fails" do
+    assert {:error, _reason} = ExUptimerobot.Request.build_body("failure")
+  end
 end
