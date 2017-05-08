@@ -31,7 +31,7 @@ defmodule ExUptimerobot.Request do
         {:error, "Failed to POST"}
     end
   end
-  def post(_action, _params) do {:error, "Invalid action"} end
+  def post(_action, _params), do: {:error, "Invalid action"}
 
   @doc """
   Build a request body based on the passed keyword list of params.
@@ -39,9 +39,10 @@ defmodule ExUptimerobot.Request do
   def build_body(params) when is_list(params) do
     "api_key=" <> @api_key <> "&" <> URI.encode_query(params)
   end
+  def build_body(_params), do: {:error, "Not a list"}
 
   @doc """
-  Check the response to determine whether the API response status returns 
+  Check the response to determine whether the API response status returns
   a success or a failure.
   """
   @spec response_status?(any) :: tuple
