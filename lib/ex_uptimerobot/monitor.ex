@@ -15,7 +15,7 @@ defmodule ExUptimerobot.Monitor do
 
     iex> ExUptimerobot.Monitor.get_monitors()
     {:ok, %{"monitors" => [%{"create_datetime" => 0, "friendly_name" => "Elixir Lang"}]}
-    
+
   """
   @spec get_monitors([tuple]) :: tuple
   def get_monitors(params \\ []) do
@@ -37,16 +37,16 @@ defmodule ExUptimerobot.Monitor do
   ## Example
 
     iex> ExUptimerobot.Monitor.new_monitor([friendly_name: "Elixir Lang", url: "http://elixir-lang.org/", type: 1])
-    {:ok, "Added monitor"}
+    {:ok, response}
 
   """
   @spec new_monitor([tuple]) :: tuple
   def new_monitor(params \\ []) do
     with {:ok, body}  <- Request.post("newMonitor", params),
          {:ok, body}  <- Poison.Parser.parse(body),
-         {:ok, _resp} <- Request.response_status?(body)
+         {:ok, resp}  <- Request.response_status?(body)
     do
-      {:ok, "Added monitor"}
+      {:ok, resp}
     else
       {:error, reason} -> {:error, reason}
       _                -> {:error, "General error"}
@@ -62,9 +62,9 @@ defmodule ExUptimerobot.Monitor do
   def delete_monitor(id) do
     with {:ok, body} <- Request.post("deleteMonitor", [format: "json", id: id]),
          {:ok, body} <- Poison.Parser.parse(body),
-         {:ok, _resp} <- Request.response_status?(body)
+         {:ok, resp} <- Request.response_status?(body)
     do
-      {:ok, "Deleted monitor #{id}"}
+      {:ok, resp}
     else
       {:error, reason} -> {:error, reason}
       _                -> {:error, "Error deleting monitor"}
@@ -106,7 +106,7 @@ defmodule ExUptimerobot.Monitor do
     if Enum.member?(monitor_keys(), key) do
       case get_monitors() do
         {:ok, body} ->
-          {:ok, 
+          {:ok,
             Enum.reduce(get_in(body, ["monitors"]), [], fn(x, acc) ->
             [x[key] | acc]
             end)
