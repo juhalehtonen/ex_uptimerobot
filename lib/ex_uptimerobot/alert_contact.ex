@@ -7,6 +7,12 @@ defmodule ExUptimerobot.AlertContact do
   @doc """
   Get all alert contacts, or a set of contacts as specified by params. Full
   documentation for all parameters can be found from https://uptimerobot.com/api.
+
+  ## Example
+
+     iex> ExUptimerobot.AlertContact.get_alert_contacts()
+     {:ok, results}
+
   """
   @spec get_alert_contacts([tuple]) :: tuple
   def get_alert_contacts(params \\ []) do

@@ -5,8 +5,14 @@ defmodule ExUptimerobot.Account do
   alias ExUptimerobot.Request
 
   @doc """
-  Account details (max number of monitors that can be added and number of 
+  Account details (max number of monitors that can be added and number of
   up/down/paused monitors) can be grabbed using this method.
+
+  ## Example
+
+    iex> ExUptimerobot.Account.get_account_details()
+    {:ok, results}
+
   """
   def get_account_details do
     with {:ok, body} <- Request.post("getAccountDetails"),

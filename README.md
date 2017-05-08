@@ -2,10 +2,11 @@
 
 [![Build Status](https://travis-ci.org/juhalehtonen/ex_uptimerobot.svg?branch=master)](https://travis-ci.org/juhalehtonen/ex_uptimerobot)
 
-A small Elixir wrapper for the https://uptimerobot.com/ API service. Currently
-very much WIP with very limited functionality.
+A small Elixir wrapper for the https://uptimerobot.com/ API service.
 
-See [https://hexdocs.pm/ex_uptimerobot](https://hexdocs.pm/ex_uptimerobot) for a list 
+Please note that this library is currently a work in progress (thus major version 0).
+
+See [https://hexdocs.pm/ex_uptimerobot](https://hexdocs.pm/ex_uptimerobot) for a list
 of available API method wrappers.
 
 ## Installation
@@ -14,7 +15,7 @@ of available API method wrappers.
 
 ```elixir
 def deps do
-  [{:ex_uptimerobot, "~> 0.2.2"}]
+  [{:ex_uptimerobot, "~> 0.2.3"}]
 end
 ```
 
@@ -29,11 +30,14 @@ config :ex_uptimerobot, :api_key, "your-uptimerobot-api-key"
 or by setting the `EXUPTIMEROBOT_API_KEY` system environment variable.
 
 
-## Usage
+## Using ExUptimerobot
 
 Example usage:
+
 - Get all monitors: `ExUptimerobot.Monitor.get_monitors()`
 - Add a new monitor: `ExUptimerobot.Monitor.new_monitor([friendly_name: "Elixir Lang", url: "http://elixir-lang.org/", type: 1])`
+- Get account details: `ExUptimerobot.Account.get_account_details()`
+- Get alert contacts: `ExUptimerobot.AlertContact.get_alert_contacts()`
 
 
 ## Documentation
