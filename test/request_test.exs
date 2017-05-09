@@ -9,7 +9,7 @@ defmodule ExUptimerobot.RequestTest do
   end
 
   test "POST request with invalid action type fails" do
-    assert {:error, _reason} = ExUptimerobot.Request.post(123)
+    assert {:error, "Invalid action"} = ExUptimerobot.Request.post(123)
   end
 
   test "Building a request body from params of keyword list succeeds" do
@@ -18,6 +18,6 @@ defmodule ExUptimerobot.RequestTest do
   end
 
   test "Building a body from invalid param type fails" do
-    assert {:error, _reason} = ExUptimerobot.Request.build_body("failure")
+    assert {:error, "Params not a keyword list"} = ExUptimerobot.Request.build_body("failure")
   end
 end

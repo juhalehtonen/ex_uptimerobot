@@ -2,9 +2,7 @@
 
 [![Build Status](https://travis-ci.org/juhalehtonen/ex_uptimerobot.svg?branch=master)](https://travis-ci.org/juhalehtonen/ex_uptimerobot)
 
-A small Elixir wrapper for the https://uptimerobot.com/ API service.
-
-Please note that this library is currently a work in progress (thus major version 0).
+A small Elixir wrapper for the https://uptimerobot.com/ API (v2) service.
 
 See [https://hexdocs.pm/ex_uptimerobot](https://hexdocs.pm/ex_uptimerobot) for a list
 of available API method wrappers.
@@ -37,12 +35,18 @@ Example usage:
 - Get all monitors: `ExUptimerobot.Monitor.get_monitors()`
 - Add a new monitor: `ExUptimerobot.Monitor.new_monitor([friendly_name: "Elixir Lang", url: "http://elixir-lang.org/", type: 1])`
 - Get account details: `ExUptimerobot.Account.get_account_details()`
-- Get alert contacts: `ExUptimerobot.AlertContact.get_alert_contacts()`
+- Get all alert contacts: `ExUptimerobot.AlertContact.get_alert_contacts()`
 
 
 ## Documentation
 
 Docs can be found at [https://hexdocs.pm/ex_uptimerobot](https://hexdocs.pm/ex_uptimerobot).
+
+## Testing
+
+- ExUnit: `mix test`
+- Dialyzer: `mix dialyzer`
+- Coveralls: `mix coveralls`
 
 ## License
 
