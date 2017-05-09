@@ -47,6 +47,7 @@ Docs can be found at [https://hexdocs.pm/ex_uptimerobot](https://hexdocs.pm/ex_u
 - ExUnit: `mix test`
 - Dialyzer: `mix dialyzer`
 - Coveralls: `mix coveralls`
+- Credo: `mix credo --strict`
 
 ## License
 
