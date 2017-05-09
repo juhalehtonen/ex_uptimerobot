@@ -13,6 +13,6 @@ before_script:
   # Store in $PLT_LOCATION
   - wget -O $PLT_LOCATION https://raw.github.com/danielberkompas/travis_elixir_plts/master/$PLT_FILENAME
 script:
-  - "MIX_ENV=test mix do deps.get, compile, coveralls.travis"
+  - mix test
   - dialyzer --no_check_plt --plt $PLT_LOCATION --no_native _build/test/lib/ex_uptimerobot/ebin
 
