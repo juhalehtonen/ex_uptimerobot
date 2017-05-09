@@ -81,9 +81,9 @@ defmodule ExUptimerobot.Monitor do
   def reset_monitor(id) do
     with {:ok, body} <- Request.post("resetMonitor", [format: "json", id: id]),
          {:ok, body} <- Poison.Parser.parse(body),
-         {:ok, _resp} <- Request.response_status?(body)
+         {:ok, resp} <- Request.response_status?(body)
     do
-      {:ok, "Reset monitor #{id}"}
+      {:ok, resp}
     else
       {:error, reason} -> {:error, reason}
       _                -> {:error, "Error resetting monitor"}
