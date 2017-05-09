@@ -3,7 +3,7 @@ defmodule ExUptimerobot.Monitor do
   Interact with Monitor-related API methods.
   """
   alias ExUptimerobot.Request
-
+  alias Poison.Parser
 
   ## API PATHS
 
@@ -20,7 +20,7 @@ defmodule ExUptimerobot.Monitor do
   @spec get_monitors([tuple]) :: tuple()
   def get_monitors(params \\ []) do
     with {:ok, body} <- Request.post("getMonitors", params),
-         {:ok, body} <- Poison.Parser.parse(body)
+         {:ok, body} <- Parser.parse(body)
     do
       {:ok, body}
     else
@@ -44,7 +44,7 @@ defmodule ExUptimerobot.Monitor do
   def new_monitor(params \\ [])
   def new_monitor(params) when is_list(params) do
     with {:ok, body}  <- Request.post("newMonitor", params),
-         {:ok, body}  <- Poison.Parser.parse(body),
+         {:ok, body}  <- Parser.parse(body),
          {:ok, resp}  <- Request.response_status?(body)
     do
       {:ok, resp}
@@ -55,7 +55,6 @@ defmodule ExUptimerobot.Monitor do
   end
   def new_monitor(_params), do: {:error, "Params not a keyword list"}
 
-
   @doc """
   Delete an existing monitor by the monitor ID.
   """
@@ -63,7 +62,7 @@ defmodule ExUptimerobot.Monitor do
   @spec delete_monitor(String.t) :: tuple()
   def delete_monitor(id) do
     with {:ok, body} <- Request.post("deleteMonitor", [format: "json", id: id]),
-         {:ok, body} <- Poison.Parser.parse(body),
+         {:ok, body} <- Parser.parse(body),
          {:ok, resp} <- Request.response_status?(body)
     do
       {:ok, resp}
@@ -80,7 +79,7 @@ defmodule ExUptimerobot.Monitor do
   @spec reset_monitor(String.t) :: tuple()
   def reset_monitor(id) do
     with {:ok, body} <- Request.post("resetMonitor", [format: "json", id: id]),
-         {:ok, body} <- Poison.Parser.parse(body),
+         {:ok, body} <- Parser.parse(body),
          {:ok, resp} <- Request.response_status?(body)
     do
       {:ok, resp}
@@ -89,7 +88,6 @@ defmodule ExUptimerobot.Monitor do
       _                -> {:error, "Error resetting monitor"}
     end
   end
-
 
   ## HELPERS & CONVENIENCE FUNCTIONS
 
