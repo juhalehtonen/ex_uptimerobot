@@ -4,8 +4,6 @@
 
 A small Elixir wrapper for the https://uptimerobot.com/ API service.
 
-Please note that this library is currently a work in progress (thus major version 0).
-
 See [https://hexdocs.pm/ex_uptimerobot](https://hexdocs.pm/ex_uptimerobot) for a list
 of available API method wrappers.
 
