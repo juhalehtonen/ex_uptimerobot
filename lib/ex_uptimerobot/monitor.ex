@@ -110,7 +110,7 @@ defmodule ExUptimerobot.Monitor do
         {:ok, body} ->
           {:ok,
             Enum.reduce(get_in(body, ["monitors"]), [], fn(x, acc) ->
-            [x[key] | acc]
+              [x[key] | acc]
             end)
           }
         {:error, reason} ->
