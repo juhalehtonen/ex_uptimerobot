@@ -17,7 +17,7 @@ defmodule ExUptimerobot.Monitor do
     {:ok, %{"monitors" => [%{"create_datetime" => 0, "friendly_name" => "Elixir Lang"}]}
 
   """
-  @spec get_monitors([tuple]) :: tuple
+  @spec get_monitors([tuple]) :: tuple()
   def get_monitors(params \\ []) do
     with {:ok, body} <- Request.post("getMonitors", params),
          {:ok, body} <- Poison.Parser.parse(body)
@@ -40,7 +40,7 @@ defmodule ExUptimerobot.Monitor do
     {:ok, response}
 
   """
-  @spec new_monitor([tuple]) :: tuple
+  @spec new_monitor([tuple]) :: tuple()
   def new_monitor(params \\ []) do
     with {:ok, body}  <- Request.post("newMonitor", params),
          {:ok, body}  <- Poison.Parser.parse(body),
@@ -57,8 +57,8 @@ defmodule ExUptimerobot.Monitor do
   @doc """
   Delete an existing monitor by the monitor ID.
   """
-  @spec delete_monitor(integer) :: tuple
-  @spec delete_monitor(String.t) :: tuple
+  @spec delete_monitor(integer) :: tuple()
+  @spec delete_monitor(String.t) :: tuple()
   def delete_monitor(id) do
     with {:ok, body} <- Request.post("deleteMonitor", [format: "json", id: id]),
          {:ok, body} <- Poison.Parser.parse(body),
@@ -74,8 +74,8 @@ defmodule ExUptimerobot.Monitor do
   @doc """
   Reset (delete all stats and response time data) a monitor by the monitor ID.
   """
-  @spec reset_monitor(integer) :: tuple
-  @spec reset_monitor(String.t) :: tuple
+  @spec reset_monitor(integer) :: tuple()
+  @spec reset_monitor(String.t) :: tuple()
   def reset_monitor(id) do
     with {:ok, body} <- Request.post("resetMonitor", [format: "json", id: id]),
          {:ok, body} <- Poison.Parser.parse(body),
@@ -101,7 +101,7 @@ defmodule ExUptimerobot.Monitor do
     {:ok, ["http://elixir-lang.org/", "https://www.erlang.org/"]}
 
   """
-  @spec list_values(String.t) :: tuple
+  @spec list_values(String.t) :: tuple()
   def list_values(key) when is_binary(key) do
     if Enum.member?(monitor_keys(), key) do
       case get_monitors() do
@@ -118,17 +118,19 @@ defmodule ExUptimerobot.Monitor do
       {:error, "Not a valid key"}
     end
   end
+  def list_values(_key), do: {:error, "Provided key not a string"}
 
   @doc """
   Check if a given URL is being monitored.
   """
-  @spec is_monitored?(String.t) :: boolean
+  @spec is_monitored?(String.t) :: boolean() | tuple()
   def is_monitored?(url) when is_binary(url) do
     case list_values("url") do
       {:ok, body} -> Enum.member?(body, url)
       {:error, reason} -> {:error, reason}
     end
   end
+  def is_monitored?(_url), do: {:error, "Invalid URL format"}
 
   # Provide a list of possible monitor keys
   defp monitor_keys do

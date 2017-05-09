@@ -37,7 +37,7 @@ Example usage:
 - Get all monitors: `ExUptimerobot.Monitor.get_monitors()`
 - Add a new monitor: `ExUptimerobot.Monitor.new_monitor([friendly_name: "Elixir Lang", url: "http://elixir-lang.org/", type: 1])`
 - Get account details: `ExUptimerobot.Account.get_account_details()`
-- Get alert contacts: `ExUptimerobot.AlertContact.get_alert_contacts()`
+- Get all alert contacts: `ExUptimerobot.AlertContact.get_alert_contacts()`
 
 
 ## Documentation

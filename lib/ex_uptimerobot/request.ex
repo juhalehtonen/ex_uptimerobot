@@ -39,7 +39,7 @@ defmodule ExUptimerobot.Request do
   def build_body(params) when is_list(params) do
     "api_key=" <> @api_key <> "&" <> URI.encode_query(params)
   end
-  def build_body(_params), do: {:error, "Not a list"}
+  def build_body(_params), do: {:error, "Params not a keyword list"}
 
   @doc """
   Check the response to determine whether the API response status returns
