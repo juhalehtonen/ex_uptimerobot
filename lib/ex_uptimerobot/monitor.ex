@@ -41,7 +41,8 @@ defmodule ExUptimerobot.Monitor do
 
   """
   @spec new_monitor([tuple]) :: tuple()
-  def new_monitor(params \\ []) do
+  def new_monitor(params \\ [])
+  def new_monitor(params) when is_list(params) do
     with {:ok, body}  <- Request.post("newMonitor", params),
          {:ok, body}  <- Poison.Parser.parse(body),
          {:ok, resp}  <- Request.response_status?(body)
@@ -52,6 +53,7 @@ defmodule ExUptimerobot.Monitor do
       _                -> {:error, "General error"}
     end
   end
+  def new_monitor(_params), do: {:error, "Params not a keyword list"}
 
 
   @doc """

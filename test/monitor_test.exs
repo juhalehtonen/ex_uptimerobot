@@ -14,6 +14,7 @@ defmodule ExUptimerobot.MonitorTest do
     assert Map.has_key?(body, "monitors")
   end
 
+
   test "Listing values with a valid key returns an {:ok, list} tuple" do
     assert {:ok, _list} = Monitor.list_values("url")
   end
@@ -26,9 +27,15 @@ defmodule ExUptimerobot.MonitorTest do
     assert {:error, "Provided key not a string"} = Monitor.list_values(123)
   end
 
+
   test "Adding new monitor with insufficient params fails" do
     assert {:error, _reason} = Monitor.new_monitor()
   end
+
+  test "Adding new monitor with params of wrong type fails" do
+    assert {:error, "Params not a keyword list"} = Monitor.new_monitor("failure")
+  end
+
 
   test "Checking if monitor is in place with wrong param type fails" do
     assert {:error, _reason} = Monitor.is_monitored?(123)
