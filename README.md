@@ -1,6 +1,6 @@
 # ExUptimerobot
 
-[![Build Status](https://travis-ci.org/juhalehtonen/ex_uptimerobot.svg?branch=master)](https://travis-ci.org/juhalehtonen/ex_uptimerobot)
+[![Build Status](https://travis-ci.org/juhalehtonen/ex_uptimerobot.svg?branch=master)](https://travis-ci.org/juhalehtonen/ex_uptimerobot) [![Coverage Status](https://coveralls.io/repos/github/juhalehtonen/ex_uptimerobot/badge.svg?branch=master)](https://coveralls.io/github/juhalehtonen/ex_uptimerobot?branch=master)
 
 A small Elixir wrapper for the https://uptimerobot.com/ API (v2) service.
 
