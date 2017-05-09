@@ -13,8 +13,8 @@ defmodule ExUptimerobot.Monitor do
 
   ## Example
 
-    iex> ExUptimerobot.Monitor.get_monitors()
-    {:ok, %{"monitors" => [%{"create_datetime" => 0, "friendly_name" => "Elixir Lang"}]}
+      ExUptimerobot.Monitor.get_monitors()
+      {:ok, %{"monitors" => [%{"create_datetime" => 0, "friendly_name" => "Elixir Lang"}]}
 
   """
   @spec get_monitors([tuple]) :: tuple()
@@ -36,8 +36,8 @@ defmodule ExUptimerobot.Monitor do
 
   ## Example
 
-    iex> ExUptimerobot.Monitor.new_monitor([friendly_name: "Elixir Lang", url: "http://elixir-lang.org/", type: 1])
-    {:ok, response}
+      ExUptimerobot.Monitor.new_monitor([friendly_name: "Elixir Lang", url: "http://elixir-lang.org/", type: 1])
+      {:ok, response}
 
   """
   @spec new_monitor([tuple]) :: tuple()
@@ -97,8 +97,8 @@ defmodule ExUptimerobot.Monitor do
 
   ## Example
 
-    iex> ExUptimerobot.Monitor.list_values("url")
-    {:ok, ["http://elixir-lang.org/", "https://www.erlang.org/"]}
+      ExUptimerobot.Monitor.list_values("url")
+      {:ok, ["http://elixir-lang.org/", "https://www.erlang.org/"]}
 
   """
   @spec list_values(String.t) :: tuple()
