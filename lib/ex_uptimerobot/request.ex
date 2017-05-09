@@ -16,11 +16,12 @@ defmodule ExUptimerobot.Request do
   """
   def post(action, params \\ [format: "json"])
   def post(action, params) when is_binary(action) do
-    url = @api_url <> action
-    body = build_body(params)
+    url     = @api_url <> action
+    body    = build_body(params)
     headers = [{"Content-type", "application/x-www-form-urlencoded"}]
+    ssl     = [ssl: [{:versions, [:'tlsv1.2']}]]
 
-    case HTTPoison.post(url, body, headers, [ssl: [{:versions, [:'tlsv1.2']}]]) do
+    case HTTPoison.post(url, body, headers, ssl) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         {:ok, body}
       {:ok, %HTTPoison.Response{status_code: 404}} ->

@@ -3,6 +3,7 @@ defmodule ExUptimerobot.AlertContact do
   Interact with Alert Contact -related API methods.
   """
   alias ExUptimerobot.Request
+  alias Poison.Parser
 
   @doc """
   Get all alert contacts, or a set of contacts as specified by params. Full
@@ -17,7 +18,7 @@ defmodule ExUptimerobot.AlertContact do
   @spec get_alert_contacts([tuple]) :: tuple
   def get_alert_contacts(params \\ []) do
     with {:ok, body} <- Request.post("getAlertContacts", params),
-         {:ok, body} <- Poison.Parser.parse(body)
+         {:ok, body} <- Parser.parse(body)
     do
       {:ok, body}
     else

@@ -3,6 +3,7 @@ defmodule ExUptimerobot.Account do
   Interact with Account-related API methods.
   """
   alias ExUptimerobot.Request
+  alias Poison.Parser
 
   @doc """
   Account details (max number of monitors that can be added and number of
@@ -16,7 +17,7 @@ defmodule ExUptimerobot.Account do
   """
   def get_account_details do
     with {:ok, body} <- Request.post("getAccountDetails"),
-         {:ok, body} <- Poison.Parser.parse(body)
+         {:ok, body} <- Parser.parse(body)
     do
       {:ok, body}
     else
