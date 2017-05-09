@@ -44,6 +44,12 @@ Example usage:
 
 Docs can be found at [https://hexdocs.pm/ex_uptimerobot](https://hexdocs.pm/ex_uptimerobot).
 
+## Testing
+
+- ExUnit: `mix test`
+- Dialyzer: `mix dialyzer`
+- Coveralls: `mix coveralls`
+
 ## License
 
 Made available under the MIT license. See [LICENSE](LICENSE.md) for more details.
