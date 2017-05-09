@@ -13,7 +13,7 @@ of available API method wrappers.
 
 ```elixir
 def deps do
-  [{:ex_uptimerobot, "~> 0.2.3"}]
+  [{:ex_uptimerobot, "~> 0.3.0"}]
 end
 ```
 
