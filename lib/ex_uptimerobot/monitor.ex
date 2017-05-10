@@ -8,8 +8,7 @@ defmodule ExUptimerobot.Monitor do
   ## API PATHS
 
   @doc """
-  Get data for all monitors, or a set of monitors as specified by params. Full
-  documentation for all possible parameters can be found from https://uptimerobot.com/api.
+  Get data for all monitors, or a set of monitors as specified by params.
 
   ## Example
 

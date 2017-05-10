@@ -27,7 +27,6 @@ config :ex_uptimerobot, :api_key, "your-uptimerobot-api-key"
 
 or by setting the `EXUPTIMEROBOT_API_KEY` system environment variable.
 
-
 ## Using ExUptimerobot
 
 Example usage:
@@ -36,7 +35,6 @@ Example usage:
 - Add a new monitor: `ExUptimerobot.Monitor.new_monitor([friendly_name: "Elixir Lang", url: "http://elixir-lang.org/", type: 1])`
 - Get account details: `ExUptimerobot.Account.get_account_details()`
 - Get all alert contacts: `ExUptimerobot.AlertContact.get_alert_contacts()`
-
 
 ## Documentation
 
