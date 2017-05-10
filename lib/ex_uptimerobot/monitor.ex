@@ -50,7 +50,7 @@ defmodule ExUptimerobot.Monitor do
       {:ok, resp}
     else
       {:error, reason} -> {:error, reason}
-      _                -> {:error, "General error"}
+      _                -> {:error, "Error adding monitor"}
     end
   end
   def new_monitor(_params), do: {:error, "Params not a keyword list"}
