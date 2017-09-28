@@ -77,14 +77,14 @@ defmodule ExUptimerobot.MaintenanceWindow do
   @spec delete_maintenance_window(integer) :: tuple()
   @spec delete_maintenance_window(String.t) :: tuple()
   def delete_maintenance_window(id) do
-    with {:ok, body} <- Request.post("deleteMonitor", [format: "json", id: id]),
+    with {:ok, body} <- Request.post("deleteMWindow", [format: "json", id: id]),
          {:ok, body} <- Parser.parse(body),
          {:ok, resp} <- Request.response_status?(body)
     do
       {:ok, resp}
     else
       {:error, reason} -> {:error, reason}
-      _                -> {:error, "Error deleting monitor"}
+      _                -> {:error, "Error deleting maintenance window"}
     end
   end
 end
