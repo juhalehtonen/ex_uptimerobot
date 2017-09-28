@@ -12,7 +12,7 @@ Note that this library is still under construction and in major version zero, an
 
 ```elixir
 def deps do
-  [{:ex_uptimerobot, "~> 0.3.0"}]
+  [{:ex_uptimerobot, "~> 0.3.1"}]
 end
 ```
 
