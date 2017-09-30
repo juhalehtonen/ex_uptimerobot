@@ -76,4 +76,31 @@ defmodule ExUptimerobot.AlertContact do
       _                -> {:error, "Error deleting alert contact"}
     end
   end
+
+  @doc """
+  Edit an existing alert contact with given parameters
+
+  Required: `id`
+  Optional: `friendly_name`, `value`
+
+  ## Example
+
+      iex> ExUptimerobot.AlertContact.new_alert_contact([id: 1337, friendly_name: "Edited contact"])
+      {:ok, response}
+
+  """
+  @spec edit_alert_contact([tuple]) :: tuple
+  def edit_alert_contact(params \\ [])
+  def edit_alert_contact(params) when is_list(params) do
+    with {:ok, body} <- Request.post("editAlertContact", params),
+         {:ok, body} <- Parser.parse(body),
+         {:ok, resp} <- Request.response_status?(body)
+    do
+      {:ok, resp}
+    else
+      {:error, reason} -> {:error, reason}
+      _                -> {:error, "Error editing alert contact"}
+    end
+  end
+  def edit_alert_contact(_params), do: {:error, "Params not a keyword list"}
 end
