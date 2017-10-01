@@ -85,7 +85,7 @@ defmodule ExUptimerobot.AlertContact do
 
   ## Example
 
-      iex> ExUptimerobot.AlertContact.new_alert_contact([id: 1337, friendly_name: "Edited contact"])
+      iex> ExUptimerobot.AlertContact.edit_alert_contact([id: 1337, friendly_name: "Edited contact"])
       {:ok, response}
 
   """
