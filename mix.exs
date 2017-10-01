@@ -62,7 +62,8 @@ defmodule ExUptimerobot.Mixfile do
      {:earmark, "~> 1.2", only: :dev},
      {:dialyxir, "~> 0.5.0", only: [:dev], runtime: false},
      {:excoveralls, "~> 0.6.3", only: :test, runtime: false},
-     {:credo, "~> 0.7", only: [:dev, :test]}
+     {:credo, "~> 0.7", only: [:dev, :test]},
+     {:mock, "~> 0.3.1", only: :test}
     ]
   end
 end
