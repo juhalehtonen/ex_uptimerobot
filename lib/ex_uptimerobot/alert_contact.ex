@@ -11,8 +11,8 @@ defmodule ExUptimerobot.AlertContact do
 
   ## Example
 
-     iex> ExUptimerobot.AlertContact.get_alert_contacts()
-     {:ok, results}
+      iex> ExUptimerobot.AlertContact.get_alert_contacts()
+      {:ok, results}
 
   """
   @spec get_alert_contacts([tuple]) :: tuple
@@ -26,4 +26,81 @@ defmodule ExUptimerobot.AlertContact do
       _                -> {:error, "Error getting alert contacts"}
     end
   end
+
+  @doc """
+  Add new alert contact with given parameters.
+
+  Two parameters are required: `type` and `value`.
+  One is optional: `friendly_name`
+
+  ## Example
+
+      iex> ExUptimerobot.AlertContact.new_alert_contact([friendly_name: "Main email", value: "your-email@example.com", type: 2])
+      {:ok, response}
+
+  """
+  @spec new_alert_contact([tuple]) :: tuple
+  def new_alert_contact(params \\ [])
+  def new_alert_contact(params) when is_list(params) do
+    with {:ok, body} <- Request.post("newAlertContact", params),
+         {:ok, body} <- Parser.parse(body),
+         {:ok, resp} <- Request.response_status?(body)
+    do
+      {:ok, resp}
+    else
+      {:error, reason} -> {:error, reason}
+      _                -> {:error, "Error adding alert contact"}
+    end
+  end
+  def new_alert_contact(_params), do: {:error, "Params not a keyword list"}
+
+  @doc """
+  Delete an existing alert contact by the ID of alert contact
+
+  ## Example
+
+      iex> ExUptimerobot.AlertContact.delete_alert_contact(1337)
+      {:ok, response}
+
+  """
+  @spec delete_alert_contact(integer) :: tuple
+  @spec delete_alert_contact(String.t) :: tuple
+  def delete_alert_contact(id) do
+    with {:ok, body} <- Request.post("deleteAlertContact", [format: "json", id: id]),
+         {:ok, body} <- Parser.parse(body),
+         {:ok, resp} <- Request.response_status?(body)
+    do
+      {:ok, resp}
+    else
+      {:error, reason} -> {:error, reason}
+      _                -> {:error, "Error deleting alert contact"}
+    end
+  end
+
+  @doc """
+  Edit an existing alert contact with given parameters
+
+  Required: `id`
+  Optional: `friendly_name`, `value`
+
+  ## Example
+
+      iex> ExUptimerobot.AlertContact.edit_alert_contact([id: 1337, friendly_name: "Edited contact"])
+      {:ok, response}
+
+  """
+  @spec edit_alert_contact([tuple]) :: tuple
+  def edit_alert_contact(params \\ [])
+  def edit_alert_contact(params) when is_list(params) do
+    with {:ok, body} <- Request.post("editAlertContact", params),
+         {:ok, body} <- Parser.parse(body),
+         {:ok, resp} <- Request.response_status?(body)
+    do
+      {:ok, resp}
+    else
+      {:error, reason} -> {:error, reason}
+      _                -> {:error, "Error editing alert contact"}
+    end
+  end
+  def edit_alert_contact(_params), do: {:error, "Params not a keyword list"}
 end
