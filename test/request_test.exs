@@ -1,16 +1,28 @@
 defmodule ExUptimerobot.RequestTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case, async: false
   alias ExUptimerobot.Request
   doctest ExUptimerobot
 
+  import Mock
+
   @moduletag :request
 
+
   test "POST request with a valid action and no user-provided params succeeds" do
-    assert {:ok, _body} = Request.post("getMonitors")
+    with_mock Request, [post: fn(_action) -> {:ok, "_body"} end] do
+      assert {:ok, _body} = Request.post("getMonitors")
+    end
   end
 
   test "POST request with invalid action type fails" do
-    assert {:error, "Invalid action"} = Request.post(123)
+    with_mock(Request, [
+      post: fn
+        (action) when is_binary(action) -> {:ok, "_body"}
+        (_action) -> {:error, "Invalid action"}
+      end
+    ]) do
+      assert {:error, "Invalid action"} = Request.post(123)
+    end
   end
 
   test "Building a request body from params of keyword list succeeds" do
