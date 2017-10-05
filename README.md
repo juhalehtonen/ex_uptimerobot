@@ -2,9 +2,9 @@
 
 [![Build Status](https://travis-ci.org/juhalehtonen/ex_uptimerobot.svg?branch=master)](https://travis-ci.org/juhalehtonen/ex_uptimerobot)
 
-A small Elixir wrapper for the https://uptimerobot.com/ API (v2) service.
+A simple Elixir wrapper for the https://uptimerobot.com/ API (v2) service.
 
-Note that this library is still under construction and in major version zero, and thus not all functionality offered by the Uptime Robot API is yet present. See the docs at [https://hexdocs.pm/ex_uptimerobot](https://hexdocs.pm/ex_uptimerobot) to see what's available at this time.
+To use this library, see both [the official API documentation](https://uptimerobot.com/api) as well as the [ex_uptimerobot docs on Hexdocs](https://hexdocs.pm/ex_uptimerobot/api-reference.html).
 
 ## Installation
 
@@ -12,13 +12,13 @@ Note that this library is still under construction and in major version zero, an
 
 ```elixir
 def deps do
-  [{:ex_uptimerobot, "~> 0.3.1"}]
+  [{:ex_uptimerobot, "~> 0.4.0"}]
 end
 ```
 
 2. Run `mix deps.get`
 
-Configure with your Uptime Robot API key, either via:
+3. Configure with your Uptime Robot API key, either via:
 
 ```elixir
 config :ex_uptimerobot, :api_key, "your-uptimerobot-api-key"
