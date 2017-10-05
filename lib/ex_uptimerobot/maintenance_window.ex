@@ -63,6 +63,42 @@ defmodule ExUptimerobot.MaintenanceWindow do
   def new_maintenance_window(_params), do: {:error, "Params not a keyword list"}
 
   @doc """
+  Edit maintenance window with given id.
+
+  Required params:
+  - `id`
+  - `friendly_name`
+  - `value` (only needed for weekly and monthly maintenance windows)
+  - `start_time` (start datetime)
+  - `duration` (how many minutes the maintenace window will be active for)
+
+  ## Example
+
+      MaintenanceWindow.edit_maintenance_window([
+        id: 14362
+        friendly_name: "New window name",
+        start_time: "1612083323",
+        duration: "30"
+      ])
+      {:ok, response}
+
+  """
+  @spec edit_maintenance_window([tuple]) :: tuple()
+  def edit_maintenance_window(params \\ [])
+  def edit_maintenance_window(params) when is_list(params) do
+    with {:ok, body}  <- Request.post("editMWindow", params),
+         {:ok, body}  <- Parser.parse(body),
+         {:ok, resp}  <- Request.response_status?(body)
+    do
+      {:ok, resp}
+    else
+      {:error, reason} -> {:error, reason}
+      _                -> {:error, "Error editing maintenance window"}
+    end
+  end
+  def edit_maintenance_window(_params), do: {:error, "Params not a keyword list"}
+
+  @doc """
   Delete an existing maintenance window by the maintenance window ID.
 
   Required parameters:
